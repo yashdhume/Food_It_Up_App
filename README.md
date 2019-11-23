@@ -1,4 +1,4 @@
-# fooditup
+# Food It Up
 
 A new Flutter project.
 
