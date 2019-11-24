@@ -150,15 +150,16 @@ class _InventoryPage extends State<InventoryPage> {
           shape: CircleBorder(),
           children: [
             SpeedDialChild(
-              child: Icon(Icons.accessibility),
-              backgroundColor: Colors.red,
+              child: Icon(Icons.send, color: Colors.white,),
+              backgroundColor: Color(0xffFF416C),
               label: 'Submit',
+
               labelStyle: TextStyle(fontSize: 18.0),
               onTap: () => model.sendInventory(inventory)
             ),
             SpeedDialChild(
-              child: Icon(Icons.add_a_photo, color: Color(0xfff12711)),
-             
+              child: Icon(Icons.add_a_photo, color: Colors.white),
+                backgroundColor: Color(0xffFF416C),
               label: 'Camera',
               labelStyle: TextStyle(fontSize: 18.0),
               onTap: () => getImage(model)

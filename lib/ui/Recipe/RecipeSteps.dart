@@ -3,6 +3,21 @@ import 'package:fooditup/data/Recipe.dart';
 class RecipeDetailsPage extends StatelessWidget {
   Recipe recipe;
   RecipeDetailsPage({this.recipe});
+  List<Widget> createInstructions(){
+    int count = 0;
+    List<Widget> a = [] ; 
+    recipe.instructions.forEach((item){
+      a.add(_buildStep(
+          leadingTitle: "0" + count.toString(),
+          title: "Step".toUpperCase(),
+          content:
+          item),); 
+      a.add(SizedBox(
+        height: 30.0,
+      ),);
+    });
+    return a; 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,27 +94,7 @@ class RecipeDetailsPage extends StatelessWidget {
                   ),
                 ),
 
-                _buildStep(
-                    leadingTitle: "01",
-                    title: "Step".toUpperCase(),
-                    content:
-                      recipe.instructions[0]),
-                SizedBox(
-                  height: 30.0,
-                ),
-                _buildStep(
-                    leadingTitle: "02",
-                    title: "Step".toUpperCase(),
-                    content:
-                    recipe.instructions[1]),
-                         SizedBox(
-                  height: 30.0,
-                ),
-                _buildStep(
-                    leadingTitle: "03",
-                    title: "Step".toUpperCase(),
-                    content:
-                        recipe.instructions[2])],
+                ]..addAll(createInstructions())
             ),
           ),
         ],

@@ -9,7 +9,7 @@ class ViewModel extends Model {
   Auth auth; 
   Map<String, int> inventory; 
   void Initialization(){
-    auth = Auth(url:'http://192.168.0.23:3090'); 
+    auth = Auth(url:'https://learned-shell-260005.appspot.com');
     inventory = Map<String, int>();  
     print('Initialized Viewmodel');
     notifyListeners(); 

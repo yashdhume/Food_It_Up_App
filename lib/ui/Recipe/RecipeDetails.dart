@@ -58,7 +58,7 @@ class RecipeDetails extends StatelessWidget {
                           Icon(Icons.star, color: Colors.white),
                           SizedBox(width: 5.0),
                           Text(
-                            "5",
+                           recipes.rating.toString(),
                             style:
                                 TextStyle(color: Colors.white, fontSize: 18.0),
                           ),
