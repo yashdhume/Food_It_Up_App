@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fooditup/ViewModel.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:fooditup/ui/UtilWigets/GradientAppBar.dart';
 import 'package:swipedetector/swipedetector.dart';
 import '../../ViewModel.dart';
 

@@ -39,34 +39,33 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void submit(BuildContext context) async {
+  void submit(BuildContext context, ViewModel model) async {
     if (validate()) {
       try {
+        bool valid; 
         if (_formType == FormType.LOGIN) {
-          //TODO ADD LOGIN USER
+          valid = await model.signin(_email, _password); 
         } else {
-         //TODO ADD CREATE USER
+          valid = await model.signup(_email, _password); 
         }
         setState(() {
           _loading = false;
         });
-
-        await Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              settings: RouteSettings(name: "MainPage"),
-              builder: (BuildContext context) => HomePage()),
-        );
+        if (valid){
+          await Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                settings: RouteSettings(name: "MainPage"),
+                builder: (BuildContext context) => HomePage()),
+          );
+        }
+        else {
+          print('Check your username and password');
+        }
       } catch (e) {
-        MessageSnack().showErrorMessage(
-            e,
-            _scaffoldKey,
-                () => {
-              setState(() {
-                _loading = false;
-              })
-            });
-      } finally {}
+        print(e); 
+       
+      } finally {print('Went to Final');}
     }
   }
 
@@ -105,8 +104,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<ViewModel>( 
-      builder: (context, child, model) => Scaffold(
+    return ScopedModelDescendant<ViewModel>(
+      builder: (context, child, model) =>Scaffold(
       resizeToAvoidBottomPadding: false,
       key: _scaffoldKey,
       body: GestureDetector(
@@ -135,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                                     padding: EdgeInsets.only(
                                         left: 10, right: 10, top: 10),
                                     child:
-                                    Column(children: buildButtons(context)))
+                                    Column(children: buildButtons(context, model)))
                               ],
                         )
                       ]),
@@ -316,7 +315,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Widget _submitButton(String text, String key, BuildContext context) {
+  Widget _submitButton(String text, String key, BuildContext context, ViewModel model) {
     return Container(
       margin: const EdgeInsets.only(left: 40.0, right: 40.0),
       child: Row(
@@ -334,7 +333,7 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(color: Colors.black),
                 ),
               ),
-              onPressed: () => submit(context),
+              onPressed: () => submit(context, model),
             ),
           ),
         ],
@@ -369,15 +368,15 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  List<Widget> buildButtons(BuildContext context) {
+  List<Widget> buildButtons(BuildContext context, ViewModel model) {
     if (_formType == FormType.LOGIN) {
       return [
-        _submitButton("Login", 'login', context),
+        _submitButton("Login", 'login', context, model),
         _stateSwitchButton("Register Account", 'goto-register', 'register'),
       ];
     } else {
       return [
-        _submitButton("Create Account", 'create-account', context),
+        _submitButton("Create Account", 'create-account', context, model),
         _stateSwitchButton("Back", 'go-back', 'login'),
       ];
     }

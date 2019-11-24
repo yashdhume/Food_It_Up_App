@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fooditup/root_page.dart';
 import 'HomePage.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'ViewModel.dart';
@@ -9,23 +10,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   bool _initialized = false; 
   bool _loggedIn = false; 
-  Widget handleOpen(ViewModel model){
-    if (!_initialized){
-      model.Initialization(); 
-      _initialized = true; 
-      if (!model.isSignedIn()){
-        model.hasToken().then((onValue){
-          if (onValue){
-            _loggedIn = true; 
-            return HomePage(); 
-          }
-          else return LoginPage(); 
-        }); 
-      }
-    }
-    return _loggedIn ? HomePage() : LoginPage(); 
-
-  }
+ 
   @override
   Widget build(BuildContext context) {
     return ScopedModel<ViewModel>(
@@ -38,7 +23,7 @@ class MyApp extends StatelessWidget {
             primaryColor: Color(0xffFF416C),
             accentColor: Color(0xffFF416C),
           ),
-          home: LoginPage(),
+          home: RootPage(),
         ));
   }
 

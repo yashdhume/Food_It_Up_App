@@ -6,8 +6,9 @@ class ViewModel extends Model {
   Auth auth; 
   Map<String, int> inventory; 
   void Initialization(){
-    auth = Auth(url:'https://something.com'); 
+    auth = Auth(url:'http://192.168.0.23:3090'); 
     inventory = Map<String, int>(); 
+    print('Initialized Viewmodel');
     notifyListeners(); 
   }
   bool isSignedIn(){
@@ -23,9 +24,11 @@ class ViewModel extends Model {
   Future<bool> signup(String email, String password) async{
     return await auth.signUp(email, password); 
   }
+  Future<bool> signout() async{
+    return await auth.removeToken();
+  }
   Future<bool> hasToken()async{
-    //return await auth.hasToken(); 
-    return Future.value(true); 
+    return await auth.hasToken(); 
   }
   Future<List<String>> analyzeImage(File image)async{
     var objectsFound = await visualRecognitionFile(image); 
