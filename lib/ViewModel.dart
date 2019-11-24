@@ -3,6 +3,7 @@ import 'package:fooditup/data/Recipe.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:fooditup/data/watson.dart';
 import 'package:fooditup/data/RecipeGetter.dart';
+import 'package:fooditup/data/InventorySend.dart';
 import 'dart:io';
 class ViewModel extends Model {
   Auth auth; 
@@ -10,6 +11,7 @@ class ViewModel extends Model {
   void Initialization(){
     auth = Auth(url:'https://learned-shell-260005.appspot.com'); 
     inventory = Map<String, int>(); 
+    getInventory(auth.url + '/inventory/view', auth.token).then((onValue) => inventory = onValue); 
     print('Initialized Viewmodel');
     notifyListeners(); 
   }
@@ -33,6 +35,10 @@ class ViewModel extends Model {
   }
   Future<bool> hasToken()async{
     return await auth.hasToken(); 
+  }
+  Future<bool> sendInventory(Map<String, int> addedInventory)async{
+    inventory.addAll(addedInventory); 
+    return await PostInventory(auth.url + '/inventory/update', auth.token, inventory); 
   }
   Future<List<String>> analyzeImage(File image)async{
     var objectsFound = await visualRecognitionFile(image); 
