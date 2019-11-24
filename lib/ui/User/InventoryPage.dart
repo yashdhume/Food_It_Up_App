@@ -10,6 +10,10 @@ class InventoryPage extends StatefulWidget {
 }
 
 class _InventoryPage extends State<InventoryPage> {
+  //Timer timer;
+  void initState(){
+    //timer=Timer.periodic(Duration(seconds: 1), (Timer t)=>)
+  }
   Map<String, int> inventory;
 
   Future<void> getImage(ViewModel model) async {
