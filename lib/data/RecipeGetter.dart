@@ -9,8 +9,8 @@ Future<List<Recipe>> getRecipes(String url, String token)async{
   if (jsons == null){
     return []; 
   }
-  jsons.forEach((item, key){
-    recipes.add(Recipe.CreateRecipe(key)); 
+  jsons.forEach((item){
+    recipes.add(Recipe.CreateRecipe(item)); 
   }); 
   return recipes; 
 } 

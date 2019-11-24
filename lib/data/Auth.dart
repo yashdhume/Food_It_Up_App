@@ -11,9 +11,6 @@ class Auth{
     String endpoint = "/signin";
     Map<String, String> json = {'email' : email, 'password': password};
     Response response = await post(url + endpoint, body: jsonEncode(json));
-    if (response == null || response.statusCode != 200){
-      return false; 
-    }
     print(response.body); 
     token = jsonDecode(response.body)['token']; 
     uid = jsonDecode(response.body)['uid']; 
@@ -23,9 +20,6 @@ class Auth{
     String endpoint = "/signup";
     Map<String, String> json = {'email' : email, 'password': password};
     Response response = await post(url + endpoint, body: jsonEncode(json));
-    if (response == null || response.statusCode != 200){
-      return false; 
-    }
     token = jsonDecode(response.body)['token']; 
     print(token); 
     uid = jsonDecode(response.body)['uid']; 

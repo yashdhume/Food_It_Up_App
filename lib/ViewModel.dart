@@ -9,9 +9,8 @@ class ViewModel extends Model {
   Auth auth; 
   Map<String, int> inventory; 
   void Initialization(){
-    auth = Auth(url:'https://learned-shell-260005.appspot.com'); 
-    inventory = Map<String, int>(); 
-    getInventory(auth.url + '/inventory/view', auth.token).then((onValue) => inventory = onValue); 
+    auth = Auth(url:'http://192.168.0.23:3090'); 
+    inventory = Map<String, int>();  
     print('Initialized Viewmodel');
     notifyListeners(); 
   }
@@ -25,7 +24,9 @@ class ViewModel extends Model {
     return await getRecipes(auth.url + endpoint, auth.token); 
   }
   Future<bool> signin(String email, String password) async{
-    return await auth.signIn(email, password); 
+      await auth.signIn(email, password);
+     //getInventory(auth.url + '/inventory/view', auth.token).then((onValue) => inventory = onValue);
+    return true; 
   }
   Future<bool> signup(String email, String password) async{
     return await auth.signUp(email, password); 
@@ -37,6 +38,9 @@ class ViewModel extends Model {
     return await auth.hasToken(); 
   }
   Future<bool> sendInventory(Map<String, int> addedInventory)async{
+    if (inventory == null){
+      inventory = Map<String, int>();
+    }
     inventory.addAll(addedInventory); 
     return await PostInventory(auth.url + '/inventory/update', auth.token, inventory); 
   }
