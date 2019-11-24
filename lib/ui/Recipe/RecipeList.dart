@@ -23,7 +23,7 @@ class RecipeList extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: 30.0),
+              SizedBox(height: 50.0),
               _buildHeader(context),
               SizedBox(height: 40.0),
               Padding(

@@ -16,6 +16,7 @@ dependencies:
   http: ^0.11.3+16
   flutter_ibm_watson: ^0.0.2
   image_picker: ^0.6.2+1
+  swipedetector: ^1.2.0
 
 
 dev_dependencies:
