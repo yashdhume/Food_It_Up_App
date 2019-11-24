@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fooditup/ui/User/InventoryPage.dart';
 import 'ui/UtilWigets/NavigationDrawer.dart';
 import 'ui/Recipe/RecipeList.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -16,7 +17,7 @@ List<StaggeredTile> _staggeredTiles = const <StaggeredTile>[
 List<Widget> _tiles = <Widget>[
   Tile(Color(0xfff12711), Icons.fastfood, "Meals", RecipeList()),
   Tile(Color(0xfff5af19), Icons.people, "Freinds", RecipeList()),
-  Tile(Color(0xfff5af19), Icons.camera_alt, "Add Inventory", RecipeList()),
+  Tile(Color(0xfff5af19), Icons.camera_alt, "Add Inventory", InventoryPage()),
   Tile(Color(0xfff5af19), Icons.settings, "Settings", RecipeList()),
   Tile(Color(0xfff12711), FontAwesomeIcons.info, "Info", RecipeList()),
 ];

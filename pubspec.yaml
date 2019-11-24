@@ -13,7 +13,10 @@ dependencies:
   cupertino_icons: ^0.1.2
   flutter_staggered_grid_view: ^0.3.0
   flutter_secure_storage: ^3.3.1+1
-  http: ^0.12.0+2
+  http: ^0.11.3+16
+  flutter_ibm_watson: ^0.0.2
+  image_picker: ^0.6.2+1
+
 
 dev_dependencies:
   flutter_test:
@@ -26,3 +29,5 @@ flutter:
   assets:
     - assets/y1.png
     - assets/profile.png
+    - assets/IngredientsSorted.txt
+

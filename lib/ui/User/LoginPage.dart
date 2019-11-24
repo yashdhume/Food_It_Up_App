@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fooditup/ui/UtilWigets/MessageSnack.dart';
 import 'package:fooditup/HomePage.dart';
+import 'package:scoped_model/scoped_model.dart';
+
+import '../../ViewModel.dart';
 // ignore: constant_identifier_names
 enum FormType { LOGIN, REGISTER }
 
@@ -102,7 +105,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ScopedModelDescendant<ViewModel>( 
+      builder: (context, child, model) => Scaffold(
       resizeToAvoidBottomPadding: false,
       key: _scaffoldKey,
       body: GestureDetector(
@@ -138,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                     )),
               ),
               ),
-    );
+    ));
   }
   void changeValue(String value){
     setState(() {
