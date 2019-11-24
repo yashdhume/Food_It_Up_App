@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:swipedetector/swipedetector.dart';
 import '../../ViewModel.dart';
-
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 class InventoryPage extends StatefulWidget {
   _InventoryPage createState() => _InventoryPage();
 }
@@ -16,6 +16,7 @@ class _InventoryPage extends State<InventoryPage> {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
     List<String> ingredientsFound = await model.analyzeImage(image);
     Map<String, int> temp = new Map<String, int>();
+    print('Ingredients Found ' + ingredientsFound.length.toString()); 
     ingredientsFound.forEach((item) {
       print(item);
       temp[item] = 1;
@@ -23,42 +24,86 @@ class _InventoryPage extends State<InventoryPage> {
     setState(() {
       inventory = temp;
     });
+    print('Ingredients Found ' + inventory.length.toString()); 
   }
 
-  /*List<Widget> ShowOptions(ViewModel model) {
+  List<Widget> ShowOptions(ViewModel model, BuildContext context) {
     List<Widget> options = [];
     if (inventory == null) {
       return []..add(Text('Add items'));
     }
     inventory.forEach((key, value) {
-      options.add(Row(
-        children: <Widget>[
-          FloatingActionButton(
-              heroTag: key,
-              onPressed: () {
-                setState(() {
-                  inventory[key]--;
-                });
-              }),
-          Text(
-            key + ": " + value.toString(),
-            style: TextStyle(fontSize: 20),
-          ),
-          FloatingActionButton(
-            onPressed: () {
-              setState(() {
-                inventory[key]++;
-              });
-            },
-          )
-        ],
-      ));
+      options.add(buildList(context, key));
     });
+
     return options;
-  }*/
+  }
   String enter(String text) {
     return text.replaceAll(' ', "\n");
   }
+
+  Widget buildList(BuildContext context, String key){
+  return GestureDetector(
+      onTap: () {
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: Colors.white,
+        ),
+        width: double.infinity,
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  OutlineButton(
+                    color: Colors.white,
+                    child: Text("-", style: TextStyle(color: Color(0xfff12711)) ),
+                    onPressed: (){
+                      setState(() {
+                        inventory[key]--; 
+                      });
+                    },
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: key
+                    ),
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text(inventory[key].toString())
+
+                    ],
+
+                  ),
+                  OutlineButton(
+                    color: Colors.white,
+                    child: Text("+", style: TextStyle(color: Color(0xfff12711)) ),
+                    onPressed: (){
+                      setState(() {
+                        inventory[key]++; 
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
+
+          ],
+        ),
+      ));
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,20 +125,50 @@ class _InventoryPage extends State<InventoryPage> {
                       SizedBox(height: 50.0),
                       _buildHeader(context),
                       new Expanded(
-                          child: ListView.builder(
-                            itemCount: 10,
-                              itemBuilder: (context, int index) =>buildList(context, index),
+                          child: ListView(
+                            children: ShowOptions(model, context),
                           )
 
                     ),
                   ]), //..addAll(ShowOptions(model)),
                 ]),
               ),
-              floatingActionButton: FloatingActionButton(
+              floatingActionButton: SpeedDial(
+                  animatedIcon: AnimatedIcons.menu_close,
+          animatedIconTheme: IconThemeData(size: 22.0),
+          curve: Curves.bounceIn,
+          overlayColor: Colors.black,
+          tooltip: 'Speed Dial',
+          heroTag: 'speed-dial-hero-tag',
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          elevation: 8.0,
+          shape: CircleBorder(),
+          children: [
+            SpeedDialChild(
+              child: Icon(Icons.accessibility),
+              backgroundColor: Colors.red,
+              label: 'Submit',
+              labelStyle: TextStyle(fontSize: 18.0),
+              onTap: () => model.sendInventory(inventory)
+            ),
+            SpeedDialChild(
+              child: Icon(Icons.add_a_photo, color: Color(0xfff12711)),
+             
+              label: 'Camera',
+              labelStyle: TextStyle(fontSize: 18.0),
+              onTap: () => getImage(model)
+            ),
+    
+          ],
+        
+
+              ),
+            /*  floatingActionButton: FloatingActionButton(
                 backgroundColor: Colors.white,
                 onPressed: () => getImage(model),
                 child: Icon(Icons.add_a_photo, color: Color(0xfff12711)),
-              ),
+              ),*/
             ));
   }
 
@@ -130,55 +205,4 @@ class _InventoryPage extends State<InventoryPage> {
       ],
     );
   }
-}
-buildList(BuildContext context, int index){
-  return GestureDetector(
-      onTap: () {
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
-          color: Colors.white,
-        ),
-        width: double.infinity,
-        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  OutlineButton(
-                    color: Colors.white,
-                    child: Text("-", style: TextStyle(color: Color(0xfff12711)) ),
-                  ),
-                  TextField(
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Enter you item"
-                    ),
-                  ),
-                  SizedBox(
-                    height: 6,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Text("0")
-
-                    ],
-
-                  ),
-                  OutlineButton(
-                    color: Colors.white,
-                    child: Text("+", style: TextStyle(color: Color(0xfff12711)) ),
-                  ),
-                ],
-              ),
-            ),
-
-          ],
-        ),
-      ));
 }
