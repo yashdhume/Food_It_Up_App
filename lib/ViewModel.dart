@@ -20,7 +20,7 @@ class ViewModel extends Model {
     return false; 
   }
   Future<List<Recipe>> get_recipes_at(String endpoint) async{
-    return await getRecipes(auth.url + endpoint); 
+    return await getRecipes(auth.url + endpoint, auth.token); 
   }
   Future<bool> signin(String email, String password) async{
     return await auth.signIn(email, password); 

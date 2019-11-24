@@ -1,13 +1,16 @@
 import './Recipe.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
-Future<List<Recipe>> getRecipes(String url)async{
+Future<List<Recipe>> getRecipes(String url, String token)async{
   
-  Response response = await get(url); 
+  Response response = await get(url, headers: {'authorization': token}); 
   List<Recipe> recipes = []; 
   var jsons = jsonDecode(response.body); 
-  jsons.forEach((item){
-    recipes.add(Recipe.CreateRecipe(item)); 
+  if (jsons == null){
+    return []; 
+  }
+  jsons.forEach((item, key){
+    recipes.add(Recipe.CreateRecipe(key)); 
   }); 
   return recipes; 
 } 

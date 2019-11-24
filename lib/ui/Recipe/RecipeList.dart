@@ -10,7 +10,7 @@ class RecipeList extends StatefulWidget{
 class _RecipeList extends State<RecipeList> {
   List<Recipe> recipes; 
   Widget handleLoad(ViewModel model){
-    model.get_recipes_at('/inventory/recipes').then((value){
+    model.get_recipes_at('/recipe/view').then((value){
       setState(() {
         recipes = value; 
       });
