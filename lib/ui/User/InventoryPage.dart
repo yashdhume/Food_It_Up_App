@@ -59,7 +59,7 @@ class _InventoryPage extends State<InventoryPage> {
   String enter(String text) {
     return text.replaceAll(' ', "\n");
   }
-  int _dragChecker=0;
+
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<ViewModel>(
@@ -80,56 +80,19 @@ class _InventoryPage extends State<InventoryPage> {
                       SizedBox(height: 50.0),
                       _buildHeader(context),
                       new Expanded(
-                          child: GridView.count(
-                        crossAxisCount: 4,
-                        children: new List<Widget>.generate(10, (index) {
-                          return new GridTile(
-                            child: new SwipeDetector(
-                              onSwipeLeft: () {
-                                setState(() {
-                                   _dragChecker -=1;
-                                   print(_dragChecker.toString());
-                                });
-                              },
-                              onSwipeRight: () {
-                                setState(() {
-                                  _dragChecker +=1;
-                                  print(_dragChecker.toString());
-                                });
-                              },
-                              swipeConfiguration: SwipeConfiguration(
-                                  verticalSwipeMinVelocity: 100.0,
-                                  verticalSwipeMinDisplacement: 50.0,
-                                  verticalSwipeMaxWidthThreshold:100.0,
-                                  horizontalSwipeMaxHeightThreshold: 50.0,
-                                  horizontalSwipeMinDisplacement:50.0,
-                                  horizontalSwipeMinVelocity: 200.0),
-                              child: new Card(
-                                child: new Container(
-                                  child: Center(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(enter("macaroni and cheese")),
-                                      Text('$_dragChecker')
+                          child: ListView.builder(
+                            itemCount: 10,
+                              itemBuilder: (context, int index) =>buildList(context, index),
+                          )
 
-                                    ],
-                                  )),
-                                ),
-                              ),
-                            ),
-                          );
-                        }),
-                      )),
-                    ])
-                  ], //..addAll(ShowOptions(model)),
-                ),
+                    ),
+                  ]), //..addAll(ShowOptions(model)),
+                ]),
               ),
               floatingActionButton: FloatingActionButton(
                 backgroundColor: Colors.white,
                 onPressed: () => getImage(model),
-                child: Icon(Icons.add_a_photo, color: Color(0xfff12711),),
+                child: Icon(Icons.add_a_photo, color: Color(0xfff12711)),
               ),
             ));
   }
@@ -167,4 +130,55 @@ class _InventoryPage extends State<InventoryPage> {
       ],
     );
   }
+}
+buildList(BuildContext context, int index){
+  return GestureDetector(
+      onTap: () {
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: Colors.white,
+        ),
+        width: double.infinity,
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  OutlineButton(
+                    color: Colors.white,
+                    child: Text("-", style: TextStyle(color: Color(0xfff12711)) ),
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Enter you item"
+                    ),
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text("0")
+
+                    ],
+
+                  ),
+                  OutlineButton(
+                    color: Colors.white,
+                    child: Text("+", style: TextStyle(color: Color(0xfff12711)) ),
+                  ),
+                ],
+              ),
+            ),
+
+          ],
+        ),
+      ));
 }
