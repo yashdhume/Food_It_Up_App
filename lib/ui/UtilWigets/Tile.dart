@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'ViewModel.dart';
+import 'package:fooditup/ViewModel.dart';
 
 class Tile extends StatelessWidget {
   Tile(this.backgroundColor, this.iconData, this.itemName, this.navigator);

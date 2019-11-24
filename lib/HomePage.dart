@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'NavigationDrawer.dart';
-import 'RecipeList.dart';
+import 'ui/UtilWigets/NavigationDrawer.dart';
+import 'ui/Recipe/RecipeList.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'Tile.dart';
+import 'ui/UtilWigets/Tile.dart';
 
 List<StaggeredTile> _staggeredTiles = const <StaggeredTile>[
   StaggeredTile.count(3, 4),

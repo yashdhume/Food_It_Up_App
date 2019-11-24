@@ -1,8 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'MessageSnack.dart';
-import 'HomePage.dart';
+import 'package:fooditup/ui/UtilWigets/MessageSnack.dart';
+import 'package:fooditup/HomePage.dart';
 // ignore: constant_identifier_names
 enum FormType { LOGIN, REGISTER }
 
