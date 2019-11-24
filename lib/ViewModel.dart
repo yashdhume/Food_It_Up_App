@@ -1,12 +1,14 @@
 import 'package:fooditup/data/Auth.dart';
+import 'package:fooditup/data/Recipe.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:fooditup/data/watson.dart';
+import 'package:fooditup/data/RecipeGetter.dart';
 import 'dart:io';
 class ViewModel extends Model {
   Auth auth; 
   Map<String, int> inventory; 
   void Initialization(){
-    auth = Auth(url:'http://192.168.0.23:3090'); 
+    auth = Auth(url:'https://learned-shell-260005.appspot.com'); 
     inventory = Map<String, int>(); 
     print('Initialized Viewmodel');
     notifyListeners(); 
@@ -17,7 +19,9 @@ class ViewModel extends Model {
     }
     return false; 
   }
-
+  Future<List<Recipe>> get_recipes_at(String endpoint) async{
+    return await getRecipes(auth.url + endpoint); 
+  }
   Future<bool> signin(String email, String password) async{
     return await auth.signIn(email, password); 
   }

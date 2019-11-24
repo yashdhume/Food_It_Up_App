@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:fooditup/ViewModel.dart';
+import 'package:fooditup/data/Recipe.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'RecipeDetails.dart';
 
-class RecipeList extends StatelessWidget {
-  final List<String> images = [
-    "https://www.inspiredtaste.net/wp-content/uploads/2019/04/Easy-Instant-Pot-Hard-Boiled-Eggs-Recipe-1200.jpg",
-    "https://www.inspiredtaste.net/wp-content/uploads/2019/04/Easy-Instant-Pot-Hard-Boiled-Eggs-Recipe-1200.jpg"
-  ];
-
+class RecipeList extends StatefulWidget{
+  _RecipeList createState() => _RecipeList(); 
+}
+class _RecipeList extends State<RecipeList> {
+  List<Recipe> recipes; 
+  Widget handleLoad(ViewModel model){
+    model.get_recipes_at('/inventory/recipes').then((value){
+      setState(() {
+        recipes = value; 
+      });
+    }); 
+    return CircularProgressIndicator(); 
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ScopedModelDescendant<ViewModel>(
+      builder: (context, child, model) => recipes == null ? handleLoad(model) :Scaffold(
         body: Stack(
       children: <Widget>[
         Container(
@@ -37,7 +48,7 @@ class RecipeList extends StatelessWidget {
               Container(
                 height: 200,
                 child: ListView.builder(
-                  itemCount: images.length,
+                  itemCount: recipes.length,
                   padding: const EdgeInsets.only(left: 16.0),
                   scrollDirection: Axis.horizontal,
                   itemBuilder: _buildItem,
@@ -47,7 +58,7 @@ class RecipeList extends StatelessWidget {
               Container(
                 height: 230,
                 child: ListView.builder(
-                  itemCount: images.length,
+                  itemCount: recipes.length,
 
                   padding: const EdgeInsets.only(left: 16.0),
                   scrollDirection: Axis.horizontal,
@@ -59,7 +70,7 @@ class RecipeList extends StatelessWidget {
           ),
 
       ],
-    ));
+    )));
   }
 
   Widget _buildItem(BuildContext context, index, {bool large = false}) {
@@ -81,7 +92,7 @@ class RecipeList extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15.0),
                       image: DecorationImage(
                         image: NetworkImage(
-                          images[index],
+                          recipes[index].photoURL,
                         ),
                         fit: BoxFit.cover,
                       )),
