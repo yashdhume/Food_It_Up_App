@@ -9,14 +9,16 @@ List<StaggeredTile> _staggeredTiles = const <StaggeredTile>[
   StaggeredTile.count(3, 4),
   StaggeredTile.count(1, 4),
   StaggeredTile.count(4, 2),
-  StaggeredTile.count(4, 1)
+  StaggeredTile.count(2, 2),
+  StaggeredTile.count(2, 2)
 ];
 
 List<Widget> _tiles = <Widget>[
-  Tile(Color(0xffb0077CA), Icons.fastfood, "Meals", RecipeList()),
-  Tile(Color(0xffb84BD00), Icons.people, "Freinds", RecipeList()),
-  Tile(Color(0xffbC71566), Icons.settings, "Settings", RecipeList()),
-  Tile(Color(0xffb41B6E6), FontAwesomeIcons.info, "Info", RecipeList()),
+  Tile(Color(0xfff12711), Icons.fastfood, "Meals", RecipeList()),
+  Tile(Color(0xfff5af19), Icons.people, "Freinds", RecipeList()),
+  Tile(Color(0xfff5af19), Icons.camera_alt, "Add Inventory", RecipeList()),
+  Tile(Color(0xfff5af19), Icons.settings, "Settings", RecipeList()),
+  Tile(Color(0xfff12711), FontAwesomeIcons.info, "Info", RecipeList()),
 ];
 
 class HomePage extends StatefulWidget {
