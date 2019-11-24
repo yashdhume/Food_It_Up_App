@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fooditup/ui/Recipe/RecipeSteps.dart';
-
+import 'package:fooditup/data/Recipe.dart';
 class RecipeDetails extends StatelessWidget {
   int index;
   bool which;
-  RecipeDetails({this.index, this.which});
+  Recipe recipes;
+  RecipeDetails({this.index, this.which, this.recipes});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +38,7 @@ class RecipeDetails extends StatelessWidget {
                   children: <Widget>[
                     SizedBox(height: 40.0),
                     Text(
-                      "Eggs".toUpperCase(),
+                      recipes.name.toUpperCase(),
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
@@ -45,7 +46,7 @@ class RecipeDetails extends StatelessWidget {
                     ),
                     SizedBox(height: 20.0),
                     Text(
-                      "In a Sauce pan, add,\nwater till it bois \nadd egs\nlet it boil for 5 min \nenjoy",
+                      recipes.ingredients.map((item) => item + '\n').toList().toString(),
                       style: TextStyle(color: Colors.white70),
                     ),
                     SizedBox(height: 50.0),
@@ -65,7 +66,7 @@ class RecipeDetails extends StatelessWidget {
                           VerticalDivider(color: Colors.white),
                           Spacer(),
                           Text(
-                            "Non-Vegitarian",
+                            recipes.author,
                             style:
                                 TextStyle(color: Colors.white, fontSize: 18.0),
                           ),
@@ -75,7 +76,7 @@ class RecipeDetails extends StatelessWidget {
                           Icon(FontAwesomeIcons.stopwatch, color: Colors.white),
                           SizedBox(width: 5.0),
                           Text(
-                            "10 min",
+                            recipes.total_time.toString(),
                             style:
                                 TextStyle(color: Colors.white, fontSize: 18.0),
                           ),
@@ -95,7 +96,7 @@ class RecipeDetails extends StatelessWidget {
               child: SizedBox(
                 height: 350,
                 child: Hero( tag: "$which heroTag $index",child:Image.network(
-                    "https://www.inspiredtaste.net/wp-content/uploads/2019/04/Easy-Instant-Pot-Hard-Boiled-Eggs-Recipe-1200.jpg",
+                    recipes.photoURL,
                     fit: BoxFit.cover)),
               ),
             ),
@@ -126,7 +127,7 @@ class RecipeDetails extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20.0)),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => RecipeDetailsPage()));
+                      MaterialPageRoute(builder: (_) => RecipeDetailsPage(recipe: recipes)));
                 },
               ),
             ),

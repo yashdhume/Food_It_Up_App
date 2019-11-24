@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:fooditup/data/Recipe.dart';
 class RecipeDetailsPage extends StatelessWidget {
+  Recipe recipe;
+  RecipeDetailsPage({this.recipe});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,14 +28,14 @@ class RecipeDetailsPage extends StatelessWidget {
               padding: EdgeInsets.all(20.0),
               children: <Widget>[
                 Text(
-                  "Eggs".toUpperCase(),
+                  recipe.name.toUpperCase(),
                   style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
                 ),
                 SizedBox(
                   height: 16.0,
                 ),
                 Text(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lacinia, odio ut placerat finibus, ipsum risus consectetur ligula, non mattis mi neque ac mi."),
+                    recipe.description),
                 SizedBox(
                   height: 20.0,
                 ),
@@ -49,14 +51,14 @@ class RecipeDetailsPage extends StatelessWidget {
                             SizedBox(
                               width: 5.0,
                             ),
-                            Text("5")
+                            Text(recipe.rating.toString())
                           ],
                         ),
                       ),
                       VerticalDivider(),
                       Expanded(
                         child: Text(
-                          "CONTINETAL",
+                          recipe.author,
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -69,21 +71,19 @@ class RecipeDetailsPage extends StatelessWidget {
                             SizedBox(
                               width: 5.0,
                             ),
-                            Text("10 min")
+                            Text(recipe.total_time.toString())
                           ],
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 20.0,
-                ),
+
                 _buildStep(
                     leadingTitle: "01",
                     title: "Step".toUpperCase(),
                     content:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lacinia, odio ut placerat finibus, ipsum risus consectetur ligula, non mattis mi neque ac mi. Vivamus quis tellus sed erat eleifend pharetra ac non diam. Integer vitae ipsum congue, vestibulum eros quis, interdum tellus. Nunc vel dictum elit. Curabitur suscipit scelerisque."),
+                      recipe.instructions[0]),
                 SizedBox(
                   height: 30.0,
                 ),
@@ -91,16 +91,15 @@ class RecipeDetailsPage extends StatelessWidget {
                     leadingTitle: "02",
                     title: "Step".toUpperCase(),
                     content:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lacinia, odio ut placerat finibus, ipsum risus consectetur ligula, non mattis mi neque ac mi. Vivamus quis tellus sed erat eleifend pharetra ac non diam. Integer vitae ipsum congue, vestibulum eros quis, interdum tellus. Nunc vel dictum elit. Curabitur suscipit scelerisque."),
-                SizedBox(
+                    recipe.instructions[1]),
+                         SizedBox(
                   height: 30.0,
                 ),
                 _buildStep(
                     leadingTitle: "03",
                     title: "Step".toUpperCase(),
                     content:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lacinia, odio ut placerat finibus, ipsum risus consectetur ligula, non mattis mi neque ac mi. Vivamus quis tellus sed erat eleifend pharetra ac non diam. Integer vitae ipsum congue, vestibulum eros quis, interdum tellus. Nunc vel dictum elit. Curabitur suscipit scelerisque."),
-              ],
+                        recipe.instructions[2])],
             ),
           ),
         ],

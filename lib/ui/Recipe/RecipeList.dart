@@ -77,7 +77,7 @@ class _RecipeList extends State<RecipeList> {
     return GestureDetector(
       onTap: () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (_) => RecipeDetails(index: index, which: large)));
+            MaterialPageRoute(builder: (_) => RecipeDetails(index: index, which: large, recipes: recipes[index])));
       },
       child: Container(
         margin: EdgeInsets.only(right: 20),
@@ -102,7 +102,7 @@ class _RecipeList extends State<RecipeList> {
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Text(
-                "Eggs".toUpperCase(),
+                recipes[index].name.toUpperCase(),
                 style: TextStyle(color: Colors.white, fontSize: 14.0),
               ),
             )
