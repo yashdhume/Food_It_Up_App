@@ -3,6 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fooditup/ui/Recipe/RecipeSteps.dart';
 
 class RecipeDetails extends StatelessWidget {
+  int index;
+  bool which;
+  RecipeDetails({this.index, this.which});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,10 +54,10 @@ class RecipeDetails extends StatelessWidget {
                       width: double.infinity,
                       child: Row(
                         children: <Widget>[
-                          Icon(FontAwesomeIcons.fire, color: Colors.white),
+                          Icon(Icons.star, color: Colors.white),
                           SizedBox(width: 5.0),
                           Text(
-                            "65%",
+                            "5",
                             style:
                                 TextStyle(color: Colors.white, fontSize: 18.0),
                           ),
@@ -91,9 +94,9 @@ class RecipeDetails extends StatelessWidget {
               ]),
               child: SizedBox(
                 height: 350,
-                child: Image.network(
+                child: Hero( tag: "$which heroTag $index",child:Image.network(
                     "https://www.inspiredtaste.net/wp-content/uploads/2019/04/Easy-Instant-Pot-Hard-Boiled-Eggs-Recipe-1200.jpg",
-                    fit: BoxFit.cover),
+                    fit: BoxFit.cover)),
               ),
             ),
             Positioned(
@@ -106,7 +109,7 @@ class RecipeDetails extends StatelessWidget {
                     color: Color(0xfff12711),
                     onPressed: () {},
                     icon: Icon(
-                      Icons.play_arrow,
+                      Icons.favorite,
                     )),
               ),
             ),

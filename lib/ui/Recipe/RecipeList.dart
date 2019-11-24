@@ -19,8 +19,8 @@ class RecipeList extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight)),
         ),
-        SingleChildScrollView(
-          child: Column(
+
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(height: 30.0),
@@ -37,6 +37,7 @@ class RecipeList extends StatelessWidget {
               Container(
                 height: 200,
                 child: ListView.builder(
+                  itemCount: images.length,
                   padding: const EdgeInsets.only(left: 16.0),
                   scrollDirection: Axis.horizontal,
                   itemBuilder: _buildItem,
@@ -46,6 +47,8 @@ class RecipeList extends StatelessWidget {
               Container(
                 height: 230,
                 child: ListView.builder(
+                  itemCount: images.length,
+
                   padding: const EdgeInsets.only(left: 16.0),
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) =>
@@ -54,7 +57,7 @@ class RecipeList extends StatelessWidget {
               ),
             ],
           ),
-        ),
+
       ],
     ));
   }
@@ -62,8 +65,8 @@ class RecipeList extends StatelessWidget {
   Widget _buildItem(BuildContext context, index, {bool large = false}) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => RecipeDetails()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (_) => RecipeDetails(index: index, which: large)));
       },
       child: Container(
         margin: EdgeInsets.only(right: 20),
@@ -71,17 +74,19 @@ class RecipeList extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      images[index % images.length],
-                    ),
-                    fit: BoxFit.cover,
-                  )),
-              height: large ? 180 : 150,
-            ),
+            Hero(
+                tag: "$large heroTag $index",
+                 child:Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          images[index],
+                        ),
+                        fit: BoxFit.cover,
+                      )),
+                  height: large ? 180 : 150,
+                )),
             SizedBox(height: 10.0),
             Padding(
               padding: const EdgeInsets.only(left: 8.0),

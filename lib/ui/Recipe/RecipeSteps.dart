@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RecipeDetailsPage extends StatelessWidget {
   @override
@@ -17,11 +16,7 @@ class RecipeDetailsPage extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
         actions: <Widget>[
-          FlatButton.icon(
-            icon: Icon(Icons.play_circle_filled, color: Color(0xfff12711)),
-            label: Text("Watch Recipe"),
-            onPressed: () {},
-          )
+          Icon(Icons.favorite,  color: Color(0xfff12711)),
         ],
       ),
       body: Column(
@@ -50,11 +45,11 @@ class RecipeDetailsPage extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Icon(FontAwesomeIcons.fire),
+                            Icon(Icons.star),
                             SizedBox(
                               width: 5.0,
                             ),
-                            Text("65%")
+                            Text("5")
                           ],
                         ),
                       ),
