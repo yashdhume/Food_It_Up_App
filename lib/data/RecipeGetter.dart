@@ -3,7 +3,7 @@ import 'package:http/http.dart';
 import 'dart:convert';
 Future<List<Recipe>> getRecipes(String url, String token)async{
   
-  Response response = await get(url, headers: {'authorization': token}); 
+  Response response = await get(url, headers: {'authorization': '$token'});
   List<Recipe> recipes = []; 
   var jsons = jsonDecode(response.body); 
   if (jsons == null){

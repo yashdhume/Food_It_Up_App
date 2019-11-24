@@ -14,7 +14,7 @@ class RecipeDetailsPage extends StatelessWidget {
           item),); 
       a.add(SizedBox(
         height: 30.0,
-      ),);
+      ),);count++;
     });
     return a; 
   }

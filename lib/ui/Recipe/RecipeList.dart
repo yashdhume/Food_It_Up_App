@@ -36,7 +36,7 @@ class _RecipeList extends State<RecipeList> {
             children: <Widget>[
               SizedBox(height: 50.0),
               _buildHeader(context),
-              SizedBox(height: 40.0),
+              SizedBox(height: 50.0),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0),
                 child: Text(
