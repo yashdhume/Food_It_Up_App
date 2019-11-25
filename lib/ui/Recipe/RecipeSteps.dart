@@ -4,7 +4,7 @@ class RecipeDetailsPage extends StatelessWidget {
   Recipe recipe;
   RecipeDetailsPage({this.recipe});
   List<Widget> createInstructions(){
-    int count = 0;
+    int count = 1;
     List<Widget> a = [] ; 
     recipe.instructions.forEach((item){
       a.add(_buildStep(

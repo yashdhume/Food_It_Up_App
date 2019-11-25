@@ -113,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
             FocusScope.of(context).requestFocus(FocusNode());
             SystemChannels.textInput.invokeMethod('TextInput.hide');
           },
-          child:Center(
+          child:ListView(children:[Center(
                 child: Container(
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -140,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                       ]),
                     )),
               ),
-              ),
+              ])),
     ));
   }
   void changeValue(String value){
